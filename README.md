@@ -2,7 +2,7 @@
 Live on Heroku: http://cepel-medical-charges.herokuapp.com/ </br>
 
 ### Description
-This dash application allows you to predict medical charges using machine learning alogirthms (Random Forest Regression, SVR and Lasso Regression). Developed with Python and all codes published on GitHub. Feel free to review and download repository. You can:
+This dash application allows you to predict medical charges using machine learning algorithms (Random Forest Regression, SVR and Lasso Regression). Developed with Python and all codes published on GitHub. Feel free to review and download repository. You can:
 - calculate body mass index
 - predict medical costs billed by health insurance
 - review data analysis
