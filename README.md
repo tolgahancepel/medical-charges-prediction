@@ -6,7 +6,7 @@ This dash application allows you to predict medical charges using machine learni
 - calculate body mass index
 - predict medical costs billed by health insurance
 - review data analysis
-- explore data distribution.
+- explore data distribution
 
 **Inspiration:** I have inspired one of my old Kaggle notebook. You can find details about different ML pipelines and hyperparameters tuning:
 https://www.kaggle.com/tolgahancepel/medical-costs-regression-hypertuning-eda
