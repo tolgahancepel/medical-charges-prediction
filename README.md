@@ -1,4 +1,4 @@
-# Monitoring Supermarket Sales
+# Medical Charges Prediction - Plotly Dash Application
 Live on Heroku: http://cepel-medical-charges.herokuapp.com/ </br>
 
 ## Description
