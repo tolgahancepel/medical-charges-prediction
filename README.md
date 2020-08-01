@@ -18,4 +18,4 @@ https://www.kaggle.com/tolgahancepel/medical-costs-regression-hypertuning-eda
 2. Run app.py to launch a local Dash server to host the Dash app. A link will appear in your console; click this to use the Dash app.
 
 ### Screenshot
-![demo.png](demo.png)
+<img src="screenshots/demo.png" alt="screenshot" width="800"/>
