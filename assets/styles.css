@@ -391,6 +391,7 @@ body {
 }
 
 
+
 #gh-link {
     text-decoration: none;
     font-size: 10pt;
@@ -439,6 +440,11 @@ p {
     word-wrap: break-word;
 }
 
+@media (min-width: 550px) {
+    .four.columns {
+        width: 32.8% !important;
+    }
 
 
+}
 

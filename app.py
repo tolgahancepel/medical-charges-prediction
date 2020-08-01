@@ -9,6 +9,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash import no_update
 import plotly.graph_objs as go
+import plotly.express as px
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
 
@@ -290,8 +291,182 @@ def rmse_graph():
     return fig
 
 
+def bmi_dist():
+    
+    layout_count = copy.deepcopy(layout)
+    
+    fig = go.Figure(layout=layout_count)
+    
+    fig.add_trace(
+        go.Histogram(
+            x=df['bmi'].values,
+            y=df['bmi'].values,
+            # marginal='box',
+        ) 
+    )
+    
+    fig.update_layout(
+        title = "BMI Distribution",
+        title_x=0.5,
+        # yaxis_title="Sum",
+        titlefont=dict(
+            family='Open Sans',
+            size=18,
+            color = "#ffffff"
+        ),
+        showlegend = False,
+        yaxis_zeroline=False
+    )
+    
+    return fig
 
 
+
+def age_dist():
+    
+    layout_count = copy.deepcopy(layout)
+    
+    fig = go.Figure(layout=layout_count)
+    
+    fig.add_trace(
+        go.Histogram(
+            x=df['age'].values,
+            y=df['age'].values,
+            # marginal='box',
+        ) 
+    )
+    
+    fig.update_layout(
+        title = "Age Distribution",
+        title_x=0.5,
+        # yaxis_title="Sum",
+        titlefont=dict(
+            family='Open Sans',
+            size=18,
+            color = "#ffffff"
+        ),
+        showlegend = False,
+        yaxis_zeroline=False
+    )
+    
+    return fig
+
+
+def region_dist():
+    
+    layout_count = copy.deepcopy(layout)
+    
+    fig = go.Figure(layout=layout_count)
+    
+    fig.add_trace(
+        go.Histogram(
+            x=df['region'].values,
+            y=df['region'].values,
+            # marginal='box',
+        ) 
+    )
+    
+    fig.update_layout(
+        title = "Region Distribution",
+        title_x=0.5,
+        # yaxis_title="Sum",
+        titlefont=dict(
+            family='Open Sans',
+            size=18,
+            color = "#ffffff"
+        ),
+        showlegend = False,
+        yaxis_zeroline=False
+    )
+    
+    return fig
+
+def sex_dist():
+    
+    layout_count = copy.deepcopy(layout)
+    
+    fig = go.Figure(layout=layout_count)
+    
+    fig.add_trace(
+        go.Histogram(
+            x=df['sex'].values,
+            y=df['sex'].values,
+            # marginal='box',
+        ) 
+    )
+    
+    fig.update_layout(
+        title = "Sex Distribution",
+        title_x=0.5,
+        # yaxis_title="Sum",
+        titlefont=dict(
+            family='Open Sans',
+            size=18,
+            color = "#ffffff"
+        ),
+        showlegend = False,
+        yaxis_zeroline=False
+    )
+    
+    return fig
+
+def children_dist():
+    
+    layout_count = copy.deepcopy(layout)
+    
+    fig = go.Figure(layout=layout_count)
+    
+    fig.add_trace(
+        go.Histogram(
+            x=df['children'].values,
+            y=df['children'].values,
+            # marginal='box',
+        ) 
+    )
+    
+    fig.update_layout(
+        title = "Children Distribution",
+        title_x=0.5,
+        # yaxis_title="Sum",
+        titlefont=dict(
+            family='Open Sans',
+            size=18,
+            color = "#ffffff"
+        ),
+        showlegend = False,
+        yaxis_zeroline=False
+    )
+    
+    return fig
+
+def smoker_dist():
+    
+    layout_count = copy.deepcopy(layout)
+    
+    fig = go.Figure(layout=layout_count)
+    
+    fig.add_trace(
+        go.Histogram(
+            x=df['smoker'].values,
+            y=df['smoker'].values,
+            # marginal='box',
+        ) 
+    )
+    
+    fig.update_layout(
+        title = "Smoker Distribution",
+        title_x=0.5,
+        # yaxis_title="Sum",
+        titlefont=dict(
+            family='Open Sans',
+            size=18,
+            color = "#ffffff"
+        ),
+        showlegend = False,
+        yaxis_zeroline=False
+    )
+    
+    return fig
 
 
 # Create app layout
@@ -680,9 +855,27 @@ app.layout = html.Div(
                             dcc.Tab(label = "Data Distribution", children = [
                                 
                                 html.Div([
-                                    html.H4("Data Distribution"),
-                                
-                                    html.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ornare nulla eget purus rhoncus, at posuere nibh sollicitudin. Quisque at consequat massa, a porttitor sapien. Duis eu diam risus. Cras tortor dui, luctus ac porttitor eget, interdum ut arcu. Sed vel massa faucibus, volutpat velit vel, fermentum dolor. Integer eu pharetra purus. Pellentesque in eros lacus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam tempor malesuada lacinia. Aenean aliquam tincidunt nibh, et pulvinar odio aliquam eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat dolor magna, vel laoreet libero viverra vitae. Vivamus vestibulum luctus nibh et euismod. "),
+                                    
+                                    html.Div([
+                                        dcc.Graph(figure = bmi_dist(), className = "four columns", style = {"height": "280px" }),
+                                    
+                                        dcc.Graph(figure = age_dist(), className = "four columns", style = {"height": "280px" }),
+                                        
+                                        dcc.Graph(figure = region_dist(), className = "four columns", style = {"height": "280px" }),
+                                            
+                                    ], className="row"),
+                                    
+                                    html.Div([
+                                        dcc.Graph(figure = sex_dist(), className = "four columns", style = {"height": "280px" }),
+                                    
+                                        dcc.Graph(figure = children_dist(), className = "four columns", style = {"height": "280px" }),
+                                        
+                                        dcc.Graph(figure = smoker_dist(), className = "four columns", style = {"height": "280px" }),
+                                            
+                                    ], className="row"),
+                                    
+                                    
+                                    
                                 ], className = "tab_content"),
                                 
                                 
@@ -717,7 +910,7 @@ app.layout = html.Div(
                                     dcc.Markdown('''
                                     #### **Predictive Analysis on Medical Charges**
                                     
-                                    This dash application allows you to predict medical charges using machine learning alogirthms
+                                    This dash application allows you to predict medical charges using machine learning algorithms
                                     (Random Forest Regression, SVR and Lasso Regression). Developed with Python and all codes published
                                     on GitHub. Feel free to review and download repository. You can:
                                     * calculate body mass index,
@@ -732,6 +925,9 @@ app.layout = html.Div(
                                     
                                     ##### **Dataset**
                                     https://www.kaggle.com/mirichoi0218/insurance
+                                    
+                                    ##### **GitHub**
+                                    https://github.com/tolgahancepel/medical-charges-prediction
                                     
                                     
                                     
@@ -913,7 +1109,7 @@ def predict_result(n_clicks, input_age, input_bmi, input_children, input_region,
         
         
         
-        rf_result = rf_model.predict(sample)
+        rf_result = sc_y.inverse_transform(rf_model.predict(sc_X.transform(sample)))
         lasso_result = lasso_model.predict(sample)
         svr_result = sc_y.inverse_transform(svr_model.predict(sc_X.transform(sample)))
         
