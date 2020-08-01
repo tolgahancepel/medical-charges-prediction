@@ -9,7 +9,6 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash import no_update
 import plotly.graph_objs as go
-import plotly.express as px
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
 
@@ -22,12 +21,9 @@ app = dash.Dash(
 )
 server = app.server
 
-
 # Reading and preprocessing the dataset
 # -----------------------------------------------------------------------------------------------
 df = pd.read_csv("data/insurance.csv")
-
-
 
 # Encoding features
 
@@ -39,8 +35,6 @@ ohe_sex.get_feature_names(['sex'])
 
 ohe_region = OneHotEncoder(drop='first').fit(df["region"].values.reshape(-1,1))
 ohe_region.get_feature_names(['region'])
-
-
 
 df_2 = pd.concat(
     [
@@ -75,7 +69,6 @@ sc_y = StandardScaler()
 X_scaled = sc_X.fit_transform(X)
 y_scaled = sc_y.fit_transform(y.reshape(-1,1))
 
-
 # df = pd.read_csv("data/insurance.csv")
 
 
@@ -91,6 +84,8 @@ lasso_model = joblib.load(lasso_path)
 svr_path = 'data/svr_model.sav'
 svr_model = joblib.load(svr_path)
 
+# General layout for charts
+# -----------------------------------------------------------------------------------------------
 
 layout = dict(
     autosize=True,
@@ -102,13 +97,12 @@ layout = dict(
     xaxis = dict(color="#9ba8b4", showgrid=False),
     yaxis = dict(color="#9ba8b4", showgrid=False),
     
-    title="Satellite Overview",
+    title="Sample Title",
     titlefont=dict(
         family='Open Sans',
         size=18,
         color='white'
     ),
-    
     
     legend = dict(
             x=0.16,
@@ -124,19 +118,16 @@ layout = dict(
             borderwidth=1,
             orientation='h'
         )
-    
-    
 )
 
-
-
+# Smoker Graph (Data Analysis Tab)
+# -----------------------------------------------------------------------------------------------
 
 def smoker_graph():
     
     layout_count = copy.deepcopy(layout)
     
     fig = go.Figure(layout=layout_count)
-
 
     fig.add_trace(go.Violin(x=df['smoker'][ df['smoker'] == 'yes' ],
                             y=df['charges'][ df['smoker'] == 'yes' ],
@@ -161,15 +152,14 @@ def smoker_graph():
             color = "#ffffff"
         ),
         
-        
         showlegend = False,
         
         yaxis_zeroline=False)
     
     return fig
 
-
-
+# Age Graph (Data Analysis Tab)
+# -----------------------------------------------------------------------------------------------
 
 def age_graph():
     
@@ -192,33 +182,23 @@ def age_graph():
                              ),
                          )),  
     
-    
-    
-    
-    
-    
     fig.update_layout(
         title = "Charges with respect to Age",
         title_x=0.5,
         xaxis_title="Age",
         # yaxis_title="Charges",
-        
-        
         titlefont=dict(
             family='Open Sans',
             size=18,
             color = "#ffffff"
         ),
         
-        
         yaxis_zeroline=False)
-    
-    
     
     return fig
 
-
-
+# R2 Graph (Models Performance Tab)
+# -----------------------------------------------------------------------------------------------
 
 def rsquared_graph():
     
@@ -254,7 +234,8 @@ def rsquared_graph():
     
     return fig
 
-
+# RMSE Graph (Models Performance Tab)
+# -----------------------------------------------------------------------------------------------
 
 def rmse_graph():
     
@@ -290,6 +271,8 @@ def rmse_graph():
     
     return fig
 
+# BMI Graph (Data Distribution Tab)
+# -----------------------------------------------------------------------------------------------
 
 def bmi_dist():
     
@@ -320,7 +303,8 @@ def bmi_dist():
     
     return fig
 
-
+# Age Graph (Data Distribution Tab)
+# -----------------------------------------------------------------------------------------------
 
 def age_dist():
     
@@ -351,6 +335,8 @@ def age_dist():
     
     return fig
 
+# Region Graph (Data Distribution Tab)
+# -----------------------------------------------------------------------------------------------
 
 def region_dist():
     
@@ -381,6 +367,9 @@ def region_dist():
     
     return fig
 
+# Sex Graph (Data Distribution Tab)
+# -----------------------------------------------------------------------------------------------
+
 def sex_dist():
     
     layout_count = copy.deepcopy(layout)
@@ -410,6 +399,9 @@ def sex_dist():
     
     return fig
 
+# Children Graph (Data Distribution Tab)
+# -----------------------------------------------------------------------------------------------
+
 def children_dist():
     
     layout_count = copy.deepcopy(layout)
@@ -438,6 +430,9 @@ def children_dist():
     )
     
     return fig
+
+# Smoker Graph (Data Distribution Tab)
+# -----------------------------------------------------------------------------------------------
 
 def smoker_dist():
     
@@ -469,33 +464,31 @@ def smoker_dist():
     return fig
 
 
-# Create app layout
+# Creating App Layout
+# -----------------------------------------------------------------------------------------------
 app.layout = html.Div(
     [
         # dcc.Store(id="aggregate_data"),
         # empty Div to trigger javascript file for graph resizing
         html.Div(id="output-clientside"),
         
-        
         # Navbar
         # --------------------------------------------------------------------------------
         
-        
         html.Div(
-            
-            [html.Div(
             [
                 html.Div(
                     [
-                        html.Img(
-                            src=app.get_asset_url("dash-logo.png"),
-                            id="cepel-logo",
-                        )
-                    ],
-                    className="one-third column ", id = "cepel-col"
-                ),
-                html.Div(
-                    [
+                        html.Div(
+                            [
+                                html.Img(
+                                src=app.get_asset_url("dash-logo.png"),
+                                id="cepel-logo",
+                                )
+                            ], className="one-third column ", id = "cepel-col"
+                        ),
+                        html.Div(
+                        [
                         html.Div(
                             [
                                 html.H3(
@@ -514,9 +507,6 @@ app.layout = html.Div(
                 ),
                 
                 
-                
-                
-                
                 html.Div(
                     [
                         html.Img(src=app.get_asset_url("GitHub-Mark-Light-64px.png"), id = "gh-logo"),
@@ -530,21 +520,12 @@ app.layout = html.Div(
                     ],
                     className="one-third column",
                     id="button",
-                ),
-   
-                
+                ), 
             ],
             id="header",
             className="row flex-display dark_header",
         )],
-            
-            
-            
-            
-            
-            
-        
-            ),
+    ),
         
         
         # First Row
@@ -552,13 +533,11 @@ app.layout = html.Div(
         
         html.Div(
             [
-                
                 # BMI Calculator
                 # --------------------------------------------------------------------------------
                 
                 html.Div(
                     [
-                        
                         # Header of BMI
                         html.Div([
                             html.H6("Body Mass Index Calculator", className = "bmi_card_header_text"),
@@ -612,8 +591,7 @@ app.layout = html.Div(
                     className="pretty_container four columns",
                     id="cross-filter-options",
                 ),
-                 
-                
+                                
                 # Prediction
                 # --------------------------------------------------------------------------------
                 
@@ -680,25 +658,7 @@ app.layout = html.Div(
                                                 
                                         ], className = "three columns predict-input-last",
                                     ),
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
                                 ], className = "row"),
-                                
-                                
-                                
-                                
-                                
-                                
-                                
                                 
                                 html.Div([
                                     
@@ -721,9 +681,6 @@ app.layout = html.Div(
                                             ], className = "three columns predict_input",
                                         ),
                                     
-                                    
-                                    
-                                    
                                        # Sex
                                         
                                         html.Div(
@@ -741,9 +698,7 @@ app.layout = html.Div(
                                                 
                                             ], className = "three columns predict_input", style = {"margin-top": "5%"}
                                         ),
-                                    
-                                    
-                                    
+                                                                    
                                     html.Div(
                                             [
                                                   dcc.Checklist(
@@ -757,31 +712,19 @@ app.layout = html.Div(
                                             ], className = "three columns predict-input-last", style = {"margin-top": "5%"}
                                         ),
                                     
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
                                 ], className = "row"),
-                                
-
                                 
                                 html.Div(
                                     [
                                         
                                         html.Button('Predict', id='btn_predict', n_clicks=0, className = "twelve columns btn-predict"),
                                     ],
-                                 className="row container-display", style = {"padding-top": "20px"}                           
+                                    className="row container-display", style = {"padding-top": "20px"}                           
                                  ),
-                                
                                 
                             ],
                             className="pretty_container"
                         ),
-                        
                         
                         # Prediction results
                         
@@ -806,32 +749,17 @@ app.layout = html.Div(
                             id="info-container",
                             className="row container-display",
                         ),
-                        
                     ],
                     id="right-column",
                     className="eight columns",
                 ),
-                
-                
-                
-                
-                
-                
             ],
             className="row flex-display",
         ),
         
-        
-        
         html.Div(
             
             [
-            
-            
-            
-            
-                
-            
                 html.Div(
                     [
                         dcc.Tabs(
@@ -928,48 +856,24 @@ app.layout = html.Div(
                                     
                                     ##### **GitHub**
                                     https://github.com/tolgahancepel/medical-charges-prediction
-                                    
-                                    
-                                    
-                                    
-                                    
                                     '''
                                     )    
                                     
                                 ], className = "tab_content"),
-                                
-                                
-                                
+
                             ]),
-                        
-                        
-                        ], className = ""               
+                        ]              
                         ),
                     
-                    
                     ], className = "tabs_pretty_container twelve columns")
-                
-            
-                   
+
             ], className = "row flex-display",
             
             )
-        
-        
-        
-        
-        
-
-        
     ],
     id="mainContainer",
     style={"display": "flex", "flex-direction": "column"},
 )
-
-
-
-
-
 
 # App Callbacks
 # --------------------------------------------------------------------------------------------
@@ -1025,9 +929,6 @@ def copy_bmi(n_clicks, input_weight, input_height):
     else:
         return no_update
 
-
-
-
 # BMI Reset Button
 
 @app.callback(
@@ -1062,7 +963,6 @@ def reset_bmi(n_clicks):
      dash.dependencies.State('predict_smoker', 'value')],
 )
 
-
 def predict_result(n_clicks, input_age, input_bmi, input_children, input_region, input_sex, input_smoker):
     if(n_clicks):
         
@@ -1071,7 +971,7 @@ def predict_result(n_clicks, input_age, input_bmi, input_children, input_region,
         elif (len(input_smoker) == 1):
             isSmoker = "yes"
         
-        print("smoker: ", isSmoker)
+        # print("smoker: ", isSmoker)
         
         
         sample = [input_age, input_sex, input_bmi, input_children, isSmoker, input_region]
@@ -1103,12 +1003,6 @@ def predict_result(n_clicks, input_age, input_bmi, input_children, input_region,
                             columns = ohe_region.get_feature_names(['region'])).astype(int)
             ], axis=1).drop("region", axis=1)
             
-        
-        
-        
-        
-        
-        
         rf_result = sc_y.inverse_transform(rf_model.predict(sc_X.transform(sample)))
         lasso_result = lasso_model.predict(sample)
         svr_result = sc_y.inverse_transform(svr_model.predict(sc_X.transform(sample)))
@@ -1116,12 +1010,6 @@ def predict_result(n_clicks, input_age, input_bmi, input_children, input_region,
         return ("$" + ("%.2f" % rf_result)), ("$" + ("%.2f" % lasso_result)), ("$" + ("%.2f" % svr_result))
     else:
         return no_update
-
-
-
-
-
-
 
 # Main
 if __name__ == "__main__":
