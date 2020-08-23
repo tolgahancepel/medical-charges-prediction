@@ -444,7 +444,14 @@ p {
     .four.columns {
         width: 32.8% !important;
     }
-
-
 }
+
+.Select-menu-outer {
+     color : rgb(0,0,0) !important;
+}
+
+
+
+
+
 
