@@ -2,11 +2,16 @@
 Live on Heroku: http://cepel-medical-charges.herokuapp.com/ </br>
 
 ### Description
-This dash application allows you to predict telco customer churn using machine learning algorithms (SVM, LighGBM). Developed with Python and all codes published on GitHub. Feel free to review and download repository. You can:
-- predict customer churn
+This dash application allows you to predict medical charges using machine learning algorithms (Random Forest Regression, SVR and Lasso Regression). Developed with Python and all codes published on GitHub. Feel free to review and download repository. You can:
+- calculate body mass index
+- predict medical costs billed by health insurance
 - review data analysis
+- explore data distribution
 
-**Dataset:** https://github.com/IBM/telco-customer-churn-on-icp4d/blob/master/data/Telco-Customer-Churn.csv
+**Inspiration:** I have inspired one of my old Kaggle notebook. You can find details about different ML pipelines and hyperparameters tuning:
+https://www.kaggle.com/tolgahancepel/medical-costs-regression-hypertuning-eda
+
+**Dataset:** https://www.kaggle.com/mirichoi0218/insurance
 
 ### Installation and Usage
 1. Install all dependencies listed in requirements.txt - all packages are pip-installable.
